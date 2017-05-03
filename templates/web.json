@@ -1,0 +1,53 @@
+{
+    "id": "{{dariahrepo_app_web_id}}",
+    "container": {
+      "type": "DOCKER",
+      "docker": {
+        "image": "{{dariahrepo_app_web_image}}",
+        "network": "BRIDGE",
+        "portMappings": [{
+          "containerPort": {{dariahrepo_app_web_port}},
+          "servicePort": {{dariahrepo_app_web_serviceport}},
+          "protocol": "tcp" 
+        }
+        ],
+      "volumes": [
+      {
+        "containerPath": "/code/zenodo",
+        "hostPath": "/tmp/zenodo",
+        "mode": "RW"
+      }
+      ]
+     }
+    },
+    "labels":{
+      "HAPROXY_GROUP":"{{dariahrepo_app_web_haproxy_group}}",
+      "HAPROXY_0_VHOST": "zenodo",
+      "HAPROXY_0_BACKEND_REDIRECT_HTTP_TO_HTTPS": "{% raw %}  redirect scheme https code 301 if !{{ ssl_fc }}\n{% endraw %}",
+      "HAPROXY_0_HTTPS_FRONTEND_ACL": "{% raw %}  use_backend {backend} if {{ ssl_fc }}\n{% endraw %}",
+      "HAPROXY_0_REDIRECT_TO_HTTPS":"true"
+    },
+    "env": {
+      "APP_ACCOUNTS_SESSION_REDIS_URL":"redis://{{dariahrepo_redis_url}}/1",
+      "APP_BROKER_URL":"amqp://guest:guest@{{dariahrepo_mq_url}}//",
+      "APP_CACHE_REDIS_URL":"redis://{{dariahrepo_redis_url}}/0",
+      "APP_CACHE_TYPE":"redis",
+      "APP_CELERY_RESULT_BACKEND":"redis://{{dariahrepo_redis_url}}/2",
+      "APP_SEARCH_ELASTIC_HOSTS":"['{{dariahrepo_es_url}}']",
+      "APP_SECRET_KEY":"CHANGE_ME",
+      "APP_SECURE_SESSION_COOKIE":"True",
+      "APP_STATSD_HOST":"{{dariahrepo_statsd_host}}",
+      "APP_SQLALCHEMY_DATABASE_URI":"postgresql://zenodo:{{dariahrepo_postgres_passw}}@{{dariahrepo_db_host}}/zenodo",
+      "APP_WSGI_PROXIES":"2",
+      "DB_ENV_POSTGRES_USER": "zenodo",
+      "DB_ENV_POSTGRES_DB": "zenodo",
+      "DB_ENV_POSTGRES_PASSWORD": "{{dariahrepo_postgres_passw}}",
+      "DB_ENV_POSTGRES_HOST": "{{dariahrepo_db_host}}"
+    },
+    "dependencies": ["{{dariahrepo_app_cache_id}}", "{{dariahrepo_app_es_id}}", "{{dariahrepo_app_statsd_id}}", "{{dariahrepo_app_mq_id}}", "{{dariahrepo_app_db_id}}"],
+    "cmd": "/usr/local/bin/python /code/zenodo/scripts/init.py",
+    "instances": 1,
+    "cpus": {{dariahrepo_app_web_cpus}},
+    "mem": {{dariahrepo_app_web_mem}}
+}
+

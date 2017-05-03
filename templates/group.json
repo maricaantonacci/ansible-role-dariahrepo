@@ -1,0 +1,13 @@
+{
+  "id": "dariah",
+  "apps": 
+  [
+{% include 'cache.json' %},
+{% include 'es.json' %},
+{% include 'db.json' %},
+{% include 'mq.json' %},
+{% include 'statsd.json' %},
+{% include 'web.json' %},
+{% include 'worker.json' %}
+  ]
+}

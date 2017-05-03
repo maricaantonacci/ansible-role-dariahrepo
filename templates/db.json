@@ -1,0 +1,29 @@
+{
+    "id": "{{dariahrepo_app_db_id}}",
+    "container": {
+      "type": "DOCKER",
+      "docker": {
+        "image": "{{dariahrepo_app_db_image}}",
+        "network": "BRIDGE",
+        "portMappings": [{
+          "containerPort": {{dariahrepo_app_db_port}},
+          "servicePort": {{dariahrepo_app_db_serviceport}},
+          "protocol": "tcp" 
+        }
+        ]
+      }
+    },
+    "labels":{
+      "HAPROXY_GROUP":"{{dariahrepo_app_db_haproxy_group}}"
+    },
+    "env": {
+      "POSTGRES_DB": "zenodo",
+      "POSTGRES_PASSWORD": "{{dariahrepo_postgres_passw}}", 
+      "POSTGRES_USER": "zenodo"
+    },
+    "args": [ "postgres" ],
+    "instances": 1,
+    "cpus": {{dariahrepo_app_db_cpus}},
+    "mem": {{dariahrepo_app_db_mem}}
+}
+

@@ -1,0 +1,29 @@
+{
+    "id": "{{dariahrepo_app_statsd_id}}",
+    "container": {
+      "type": "DOCKER",
+      "docker": {
+        "image": "{{dariahrepo_app_statsd_image}}",
+        "network": "BRIDGE",
+        "portMappings": [{
+          "containerPort": {{dariahrepo_app_statsd_port}},
+          "servicePort": {{dariahrepo_app_statsd_serviceport}},
+          "protocol": "udp" 
+        }
+        ]
+      }
+    },
+    "labels":{
+      "HAPROXY_GROUP":"{{dariahrepo_app_statsd_haproxy_group}}"
+    },
+    "env": {
+      "ES_HOST": "marathon-lb-{{dariahrepo_app_es_haproxy_group}}.service.consul",
+      "ES_PORT": "9200"
+    },
+    "dependencies": ["{{dariahrepo_app_es_id}}"],
+    "instances": 1,
+    "cpus": {{dariahrepo_app_statsd_cpus}},
+    "mem": {{dariahrepo_app_statsd_mem}}
+
+}
+

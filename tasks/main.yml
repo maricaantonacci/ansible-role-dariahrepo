@@ -1,0 +1,71 @@
+- name: "[Dariah-Repo] Check if the group is already present"
+  run_once: true
+  uri: 
+     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/groups/dariah"
+     user: "{{marathon_username}}"
+     password: "{{marathon_password}}"
+     validate_certs: "no"
+     method: GET
+     status_code: 200, 404
+  register: get_result
+  tags:
+    - dariah
+
+
+- name: debug
+  debug: var=get_result
+  tags:
+    - dariah
+
+- name: debug
+  debug: msg="{{ lookup('template', 'templates/group.json') }}"
+  tags:
+   - dariah
+  
+
+- name: "[Dariah-Repo] deploy containers on Marathon"
+  run_once: true
+  uri: 
+     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/groups"
+     user: "{{marathon_username}}"
+     password: "{{marathon_password}}"
+     validate_certs: "no"
+     method: POST
+     HEADER_Content-Type: "application/json"
+     body: "{{ lookup('template', 'templates/group.json') }}"
+     body_format: json
+     status_code: 201
+  register: post_result
+  when: get_result.status == 404
+  tags:
+    - dariah
+
+
+- name: debug
+  debug: var=post_result
+  tags:
+    - dariah
+
+- name: "[Dariah-Repo] Update the Marathon group if already present"
+  run_once: true
+  uri:
+     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/groups"
+     user: "{{marathon_username}}"
+     password: "{{marathon_password}}"
+     validate_certs: "no"
+     method: PUT
+     HEADER_Content-Type: "application/json"
+     body: "{{ lookup('template', 'templates/group.json') }}"
+     body_format: json
+     status_code: 200
+  register: put_result
+  when: get_result.status == 200
+  tags:
+    - dariah
+
+- name: debug
+  debug: var=put_result
+  tags:
+    - dariah
+
+

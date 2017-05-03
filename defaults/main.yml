@@ -1,0 +1,68 @@
+---
+# defaults file for dariahrepo/
+marathon_username: admin
+marathon_port: 8080
+marathon_protocol: http
+
+dariahrepo_postgres_passw: zenodo
+
+dariahrepo_app_cache_id: cache
+dariahrepo_app_cache_image: redis
+dariahrepo_app_cache_port: 6379
+dariahrepo_app_cache_serviceport: 6389
+dariahrepo_app_cache_haproxy_group: external
+dariahrepo_app_cache_cpus: 0.5
+dariahrepo_app_cache_mem: 512
+
+dariahrepo_app_db_id: db
+dariahrepo_app_db_image: postgres
+dariahrepo_app_db_port: 5432
+dariahrepo_app_db_serviceport: 5432
+dariahrepo_app_db_haproxy_group: external
+dariahrepo_app_db_cpus: 0.5
+dariahrepo_app_db_mem: 512
+
+dariahrepo_app_es_id: es
+dariahrepo_app_es_image: indigodatacloudapps/dariah-repository:elasticsearch
+dariahrepo_app_es_port: [ 9200, 9300 ]
+dariahrepo_app_es_serviceport: [ 9200, 9300 ]
+dariahrepo_app_es_haproxy_group: external
+dariahrepo_app_es_cpus: 0.5
+dariahrepo_app_es_mem: 512
+
+
+dariahrepo_app_mq_id: mq
+dariahrepo_app_mq_image: rabbitmq:3-management
+dariahrepo_app_mq_port: [ 15672, 5672 ]
+dariahrepo_app_mq_serviceport: [ 15672, 5672 ]
+dariahrepo_app_mq_haproxy_group: external
+dariahrepo_app_mq_cpus: 0.5
+dariahrepo_app_mq_mem: 512
+
+dariahrepo_app_statsd_id: statsd
+dariahrepo_app_statsd_image: indigodatacloudapps/dariah-repository:statsd
+dariahrepo_app_statsd_port: 8125
+dariahrepo_app_statsd_serviceport: 8125
+dariahrepo_app_statsd_haproxy_group: external
+dariahrepo_app_statsd_cpus: 0.5
+dariahrepo_app_statsd_mem: 512
+
+dariahrepo_app_web_id: web
+dariahrepo_app_web_image: indigodatacloudapps/dariah-repository:web
+dariahrepo_app_web_port: 5000
+dariahrepo_app_web_serviceport: 5000
+dariahrepo_app_web_haproxy_group: external
+dariahrepo_app_web_cpus: 0.5
+dariahrepo_app_web_mem: 512
+
+dariahrepo_app_worker_id: worker
+dariahrepo_app_worker_image: indigodatacloudapps/dariah-repository:web
+dariahrepo_app_worker_cpus: 0.5
+dariahrepo_app_worker_mem: 512
+
+##
+dariahrepo_redis_url: marathon-lb-{{dariahrepo_app_cache_haproxy_group}}.service.consul:{{dariahrepo_app_cache_serviceport}}
+dariahrepo_mq_url: marathon-lb-{{dariahrepo_app_mq_haproxy_group}}.service.consul:{{dariahrepo_app_mq_serviceport[1]}}
+dariahrepo_es_url: marathon-lb-{{dariahrepo_app_es_haproxy_group}}.service.consul:{{dariahrepo_app_es_serviceport[0]}}
+dariahrepo_statsd_host: marathon-lb-{{dariahrepo_app_statsd_haproxy_group}}.service.consul
+dariahrepo_db_host: marathon-lb-{{dariahrepo_app_db_haproxy_group}}.service.consul

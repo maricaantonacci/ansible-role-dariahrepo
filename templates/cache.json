@@ -1,0 +1,23 @@
+{
+    "id": "{{dariahrepo_app_cache_id}}",
+    "container": {
+      "type": "DOCKER",
+      "docker": {
+        "image": "{{dariahrepo_app_cache_image}}",
+        "network": "BRIDGE",
+        "portMappings": [{
+          "containerPort": {{dariahrepo_app_cache_port}},
+          "servicePort": {{dariahrepo_app_cache_serviceport}},
+          "protocol": "tcp" 
+        }]
+      }
+    },
+    "labels":{
+      "HAPROXY_GROUP":"{{dariahrepo_app_cache_haproxy_group}}"
+    },
+    "instances": 1,
+    "cpus": {{dariahrepo_app_cache_cpus}},
+    "mem": {{dariahrepo_app_cache_mem}}
+
+}
+
