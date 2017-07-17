@@ -1,3 +1,12 @@
+---
+
+- name: "[Dariah-Repo] Download the code in the shared data aerea"
+  run_once: true
+  git:
+    repo: 'https://github.com/indigo-dc/dariah-repository.git'
+    dest: /data/zenodo
+
+
 - name: "[Dariah-Repo] Check if the group is already present"
   run_once: true
   uri: 
