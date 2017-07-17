@@ -4,7 +4,8 @@
       "type": "DOCKER",
       "docker": {
         "image": "{{dariahrepo_app_worker_image}}",
-        "network": "BRIDGE",
+        "network": "BRIDGE"
+      },
       "volumes": [
       {
         "containerPath": "/code/zenodo",
@@ -12,7 +13,6 @@
         "mode": "RW"
       }
       ]
-     }
     },
     "env": {
       "APP_ACCOUNTS_SESSION_REDIS_URL":"redis://{{dariahrepo_redis_url}}/1",

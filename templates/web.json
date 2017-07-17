@@ -10,7 +10,8 @@
           "servicePort": {{dariahrepo_app_web_serviceport}},
           "protocol": "tcp" 
         }
-        ],
+        ]
+      }
       "volumes": [
       {
         "containerPath": "/code/zenodo",
@@ -18,7 +19,6 @@
         "mode": "R"
       }
       ]
-     }
     },
     "labels":{
       "HAPROXY_GROUP":"{{dariahrepo_app_web_haproxy_group}}",
