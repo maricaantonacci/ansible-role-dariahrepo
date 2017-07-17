@@ -16,7 +16,7 @@
       {
         "containerPath": "/code/zenodo",
         "hostPath": "/data/zenodo",
-        "mode": "R"
+        "mode": "RW"
       }
       ]
     },
