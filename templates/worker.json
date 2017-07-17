@@ -8,7 +8,7 @@
       "volumes": [
       {
         "containerPath": "/code/zenodo",
-        "hostPath": "/tmp/zenodo",
+        "hostPath": "/data/zenodo",
         "mode": "RW"
       }
       ]
