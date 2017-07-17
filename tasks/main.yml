@@ -1,4 +1,8 @@
 ---
+- name: install git
+  package:
+    name: git 
+    state: present
 
 - name: "[Dariah-Repo] Download the code in the shared data aerea"
   run_once: true
