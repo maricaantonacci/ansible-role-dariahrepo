@@ -13,8 +13,8 @@
         {
           "containerPort": {{dariahrepo_app_statsd_admin_port}},
           "protocol": "tcp"
+        }
         ]
-      }
     },
     "labels":{
       "HAPROXY_GROUP":"{{dariahrepo_app_statsd_haproxy_group}}"
