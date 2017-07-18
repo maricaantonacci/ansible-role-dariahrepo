@@ -9,7 +9,10 @@
           "containerPort": {{dariahrepo_app_statsd_port}},
           "servicePort": {{dariahrepo_app_statsd_serviceport}},
           "protocol": "udp" 
-        }
+        },
+        {
+          "containerPort": {{dariahrepo_app_statsd_admin_port}},
+          "protocol": "tcp"
         ]
       }
     },
@@ -27,8 +30,17 @@
     "upgradeStrategy": {
       "maximumOverCapacity": 0,
       "minimumHealthCapacity": 0
+    },
+    "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 1,
+      "protocol": "TCP"
     }
-
+  ]
 
 }
 

@@ -44,6 +44,7 @@ dariahrepo_app_statsd_id: statsd
 dariahrepo_app_statsd_image: indigodatacloudapps/dariah-repository:statsd
 dariahrepo_app_statsd_port: 8125
 dariahrepo_app_statsd_serviceport: 8125
+dariahrepo_app_statsd_admin_port: 8126
 dariahrepo_app_statsd_haproxy_group: external
 dariahrepo_app_statsd_cpus: 0.5
 dariahrepo_app_statsd_mem: 512

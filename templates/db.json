@@ -35,7 +35,18 @@
     "upgradeStrategy": {
       "maximumOverCapacity": 0,
       "minimumHealthCapacity": 0
+    },
+
+    "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "protocol": "TCP"
     }
+  ]
 
 }
 

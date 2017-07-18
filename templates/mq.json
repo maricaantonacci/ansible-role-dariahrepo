@@ -25,7 +25,20 @@
     "upgradeStrategy": {
       "maximumOverCapacity": 0,
       "minimumHealthCapacity": 0
+    },
+    "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "delaySeconds": 15,
+      "command": {
+        "value": "rabbitmqctl status"
+      },
+      "protocol": "COMMAND"
     }
+  ]
 
 
 }
