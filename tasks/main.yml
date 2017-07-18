@@ -1,15 +1,21 @@
 ---
-- name: install git
-  package:
-    name: git 
-    state: present
+#- name: install git
+#  package:
+#    name: git 
+#    state: present
+#
+#- name: "[Dariah-Repo] Download the code in the shared data aerea"
+#  run_once: true
+#  git:
+#    repo: 'https://github.com/indigo-dc/dariah-repository.git'
+#    dest: /data/zenodo
 
-- name: "[Dariah-Repo] Download the code in the shared data aerea"
+- name: "[Dariah-Repo] Prepare repository data root"
   run_once: true
-  git:
-    repo: 'https://github.com/indigo-dc/dariah-repository.git'
-    dest: /data/zenodo
-
+  file:
+    path: /data/zenodo-data
+    state: directory
+    mode: 0777
 
 - name: "[Dariah-Repo] Check if the group is already present"
   run_once: true
