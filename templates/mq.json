@@ -21,7 +21,12 @@
     },
     "instances": 1,
     "cpus": {{dariahrepo_app_mq_cpus}},
-    "mem": {{dariahrepo_app_mq_mem}}
+    "mem": {{dariahrepo_app_mq_mem}},
+    "upgradeStrategy": {
+      "maximumOverCapacity": 0,
+      "minimumHealthCapacity": 0
+    }
+
 
 }
 

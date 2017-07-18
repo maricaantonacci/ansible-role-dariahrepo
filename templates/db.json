@@ -2,6 +2,13 @@
     "id": "{{dariahrepo_app_db_id}}",
     "container": {
       "type": "DOCKER",
+      "volumes": [
+        {
+        "containerPath": "{{ dariahrepo_app_db_datadir  }}",
+        "hostPath": "/data/postgresql",
+        "mode": "RW"
+        }
+      ],
       "docker": {
         "image": "{{dariahrepo_app_db_image}}",
         "network": "BRIDGE",
@@ -24,6 +31,11 @@
     "args": [ "postgres" ],
     "instances": 1,
     "cpus": {{dariahrepo_app_db_cpus}},
-    "mem": {{dariahrepo_app_db_mem}}
+    "mem": {{dariahrepo_app_db_mem}},
+    "upgradeStrategy": {
+      "maximumOverCapacity": 0,
+      "minimumHealthCapacity": 0
+    }
+
 }
 

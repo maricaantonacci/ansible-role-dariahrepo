@@ -23,7 +23,12 @@
     "dependencies": ["{{dariahrepo_app_es_id}}"],
     "instances": 1,
     "cpus": {{dariahrepo_app_statsd_cpus}},
-    "mem": {{dariahrepo_app_statsd_mem}}
+    "mem": {{dariahrepo_app_statsd_mem}},
+    "upgradeStrategy": {
+      "maximumOverCapacity": 0,
+      "minimumHealthCapacity": 0
+    }
+
 
 }
 

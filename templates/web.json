@@ -14,9 +14,9 @@
       },
       "volumes": [
       {
-        "containerPath": "/code/zenodo",
-        "hostPath": "/data/zenodo",
-        "mode": "RW"
+         "mode": "RW",
+         "hostPath": "/data/zenodo-data",
+         "containerPath": "{{ dariahrepo_app_web_datadir }}"
       }
       ]
     },
@@ -44,10 +44,26 @@
       "DB_ENV_POSTGRES_PASSWORD": "{{dariahrepo_postgres_passw}}",
       "DB_ENV_POSTGRES_HOST": "{{dariahrepo_db_host}}"
     },
+     "healthChecks": [
+      {
+        "path": "/",
+        "portIndex": 0,
+        "protocol": "HTTP",
+        "gracePeriodSeconds": 300,
+        "intervalSeconds": 60,
+        "timeoutSeconds": 20,
+        "maxConsecutiveFailures": 5,
+        "ignoreHttp1xx": false
+      }
+    ],
     "dependencies": ["{{dariahrepo_app_cache_id}}", "{{dariahrepo_app_es_id}}", "{{dariahrepo_app_statsd_id}}", "{{dariahrepo_app_mq_id}}", "{{dariahrepo_app_db_id}}"],
     "cmd": "/usr/local/bin/python /code/zenodo/scripts/init.py",
     "instances": 1,
     "cpus": {{dariahrepo_app_web_cpus}},
-    "mem": {{dariahrepo_app_web_mem}}
+    "mem": {{dariahrepo_app_web_mem}},
+    "upgradeStrategy": {
+      "maximumOverCapacity": 0,
+      "minimumHealthCapacity": 0
+    }
 }
 

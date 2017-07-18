@@ -2,6 +2,13 @@
     "id": "{{dariahrepo_app_es_id}}",
     "container": {
       "type": "DOCKER",
+      "volumes": [
+        {
+        "containerPath": "{{dariahrepo_app_es_datadir}}",
+        "hostPath": "/data/elasticsearch",
+        "mode": "RW"
+        }
+      ],
       "docker": {
         "image": "{{dariahrepo_app_es_image}}",
         "network": "BRIDGE",
@@ -21,7 +28,12 @@
     },
     "instances": 1,
     "cpus": {{dariahrepo_app_es_cpus}},
-    "mem": {{dariahrepo_app_es_mem}}
+    "mem": {{dariahrepo_app_es_mem}},
+    "upgradeStrategy": {
+      "maximumOverCapacity": 0,
+      "minimumHealthCapacity": 0
+    }
+
 
 }
 

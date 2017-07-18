@@ -19,25 +19,26 @@ dariahrepo_app_db_image: postgres
 dariahrepo_app_db_port: 5432
 dariahrepo_app_db_serviceport: 5432
 dariahrepo_app_db_haproxy_group: external
-dariahrepo_app_db_cpus: 0.5
-dariahrepo_app_db_mem: 512
+dariahrepo_app_db_cpus: 1
+dariahrepo_app_db_mem: 1024
+dariahrepo_app_db_datadir: '/var/lib/postgresql/data'
 
 dariahrepo_app_es_id: es
 dariahrepo_app_es_image: indigodatacloudapps/dariah-repository:elasticsearch
 dariahrepo_app_es_port: [ 9200, 9300 ]
 dariahrepo_app_es_serviceport: [ 9200, 9300 ]
 dariahrepo_app_es_haproxy_group: external
-dariahrepo_app_es_cpus: 0.5
-dariahrepo_app_es_mem: 512
-
+dariahrepo_app_es_cpus: 1
+dariahrepo_app_es_mem: 1024
+dariahrepo_app_es_datadir: '/usr/share/elasticsearch/data'
 
 dariahrepo_app_mq_id: mq
 dariahrepo_app_mq_image: rabbitmq:3-management
 dariahrepo_app_mq_port: [ 15672, 5672 ]
 dariahrepo_app_mq_serviceport: [ 15672, 5672 ]
 dariahrepo_app_mq_haproxy_group: external
-dariahrepo_app_mq_cpus: 0.5
-dariahrepo_app_mq_mem: 512
+dariahrepo_app_mq_cpus: 1
+dariahrepo_app_mq_mem: 1024
 
 dariahrepo_app_statsd_id: statsd
 dariahrepo_app_statsd_image: indigodatacloudapps/dariah-repository:statsd
@@ -52,13 +53,15 @@ dariahrepo_app_web_image: indigodatacloudapps/dariah-repository:web
 dariahrepo_app_web_port: 5000
 dariahrepo_app_web_serviceport: 5000
 dariahrepo_app_web_haproxy_group: external
-dariahrepo_app_web_cpus: 0.5
-dariahrepo_app_web_mem: 512
+dariahrepo_app_web_cpus: 1
+dariahrepo_app_web_mem: 1024
+dariahrepo_app_web_datadir: '/usr/local/var/instance/data/'
 
 dariahrepo_app_worker_id: worker
 dariahrepo_app_worker_image: indigodatacloudapps/dariah-repository:web
-dariahrepo_app_worker_cpus: 0.5
-dariahrepo_app_worker_mem: 512
+dariahrepo_app_worker_cpus: 1
+dariahrepo_app_worker_mem: 1024
+
 
 ##
 dariahrepo_redis_url: marathon-lb-{{dariahrepo_app_cache_haproxy_group}}.service.consul:{{dariahrepo_app_cache_serviceport}}

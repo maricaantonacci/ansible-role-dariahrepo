@@ -6,13 +6,7 @@
         "image": "{{dariahrepo_app_worker_image}}",
         "network": "BRIDGE"
       },
-      "volumes": [
-      {
-        "containerPath": "/code/zenodo",
-        "hostPath": "/data/zenodo",
-        "mode": "RW"
-      }
-      ]
+      "volumes": []
     },
     "env": {
       "APP_ACCOUNTS_SESSION_REDIS_URL":"redis://{{dariahrepo_redis_url}}/1",
@@ -35,7 +29,11 @@
     "cmd": "celery worker -A zenodo.celery --loglevel=INFO",
     "instances": 1,
     "cpus": {{dariahrepo_app_worker_cpus}},
-    "mem": {{dariahrepo_app_worker_mem}}
+    "mem": {{dariahrepo_app_worker_mem}},
+    "upgradeStrategy": {
+      "maximumOverCapacity": 0,
+      "minimumHealthCapacity": 0
+    }
 
 }
 
