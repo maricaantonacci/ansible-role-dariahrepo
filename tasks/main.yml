@@ -10,6 +10,15 @@
 #    repo: 'https://github.com/indigo-dc/dariah-repository.git'
 #    dest: /data/zenodo
 
+- name: Register nslookup marathon.service.consul result
+  command: nslookup marathon.service.consul
+  register: ns
+
+- set_fact: marathon_host=marathon.service.consul
+
+- set_fact: marathon_host=localhost
+  when: "'server can\\'t find' in ns.stdout"
+
 - name: "[Dariah-Repo] Prepare repository data root"
   run_once: true
   file:
