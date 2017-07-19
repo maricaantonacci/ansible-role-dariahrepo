@@ -29,13 +29,16 @@
 - name: "[Dariah-Repo] Check if the group is already present"
   run_once: true
   uri: 
-     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/groups/dariah"
+     url: "{{marathon_protocol}}://{{marathon_host}}:{{marathon_port}}/v2/groups/dariah"
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
      validate_certs: "no"
      method: GET
      status_code: 200, 404
   register: get_result
+  until: get_result | success
+  retries: 5
+  delay: 20 
   tags:
     - dariah
 
@@ -54,7 +57,7 @@
 - name: "[Dariah-Repo] deploy containers on Marathon"
   run_once: true
   uri: 
-     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/groups"
+     url: "{{marathon_protocol}}://{{marathon_host}}:{{marathon_port}}/v2/groups"
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
      validate_certs: "no"
@@ -65,6 +68,9 @@
      status_code: 201
   register: post_result
   when: get_result.status == 404
+  until: post_result | success
+  retries: 5
+  delay: 20
   tags:
     - dariah
 
@@ -77,7 +83,7 @@
 - name: "[Dariah-Repo] Update the Marathon group if already present"
   run_once: true
   uri:
-     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/groups"
+     url: "{{marathon_protocol}}://{{marathon_host}}:{{marathon_port}}/v2/groups"
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
      validate_certs: "no"
@@ -88,6 +94,9 @@
      status_code: 200
   register: put_result
   when: get_result.status == 200
+  until: put_result | success
+  retries: 5
+  delay: 20
   tags:
     - dariah
 
